@@ -1,0 +1,31 @@
+import { z } from "zod";
+
+// Mirrors backend src/validations/auth.validation.js exactly so client-side
+// errors match server-side errors.
+
+export const registerSchema = z.object({
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(30)
+    .regex(/^[a-zA-Z0-9_.]+$/, "Username can only contain letters, numbers, underscores and dots"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  fullName: z.string().min(1, "Full name is required").max(50),
+});
+
+export const loginSchema = z.object({
+  emailOrUsername: z.string().min(1, "Email or username is required"),
+  password: z.string().min(1, "Password is required"),
+});
+
+export const updateProfileSchema = z.object({
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(30)
+    .regex(/^[a-zA-Z0-9_.]+$/, "Username can only contain letters, numbers, underscores and dots")
+    .optional(),
+  fullName: z.string().min(1).max(50).optional(),
+  bio: z.string().max(160).optional(),
+});
