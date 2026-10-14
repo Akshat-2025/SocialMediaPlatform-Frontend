@@ -7,6 +7,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { InfiniteScrollTrigger } from "@/components/shared/InfiniteScrollTrigger";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFeed } from "@/features/posts/hooks";
+import { StoriesSection } from "@/components/stories/StoriesSection";
 
 export default function FeedPage() {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useFeed();
@@ -14,6 +15,7 @@ export default function FeedPage() {
 
   return (
     <div className="space-y-4">
+      <StoriesSection />
       <PostComposer />
 
       {isLoading ? (
